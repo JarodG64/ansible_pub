@@ -1,0 +1,14 @@
+- hosts: localhost
+  connection: local
+  becomme: true
+
+  tasks:
+  - name: Install packages
+    apt:
+      name:
+      - bat
+      - exa
+      - htop
+      - ncdu
+      - neofetch
+      - ufw
