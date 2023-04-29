@@ -2,13 +2,21 @@
   connection: local
   become: true
 
+  pre_tasks:
+    - name: Install updates
+      tags: always
+      apt:
+        update_cache: yes
+        upgrade: dist
+      changed_when: False
+
   tasks:
-  - name: Install packages
-    apt:
-      name:
-      - bat
-      - exa
-      - htop
-      - ncdu
-      - neofetch
-      - ufw
+    - name: Copy sudoer_jul
+      copy:
+        src: files/sudoer_jul
+        dest: /etc/sudoers.d/jul
+        owner: root
+        group: root
+        mode: 0440
+    - include: tasks/packages.yml
+
