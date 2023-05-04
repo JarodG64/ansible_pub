@@ -1,0 +1,15 @@
+   _               _              _ _                     
+  | |__   __ _ ___| |__      __ _| (_) __ _ ___  ___  ___ 
+  | '_ \ / _` / __| '_ \    / _` | | |/ _` / __|/ _ \/ __|
+ _| |_) | (_| \__ \ | | |  | (_| | | | (_| \__ \  __/\__ \
+(_)_.__/ \__,_|___/_| |_|___\__,_|_|_|\__,_|___/\___||___/
+                       |_____|                            
+
+# Définition d'alias pour Bash
+
+alias calup='sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin'
+alias eb='clear -x && exec bash'
+alias rbt='sudo reboot'
+alias sdn='sudo shutdown now'
+alias ssha='eval $(ssh-agent) && ssh-add'
+
