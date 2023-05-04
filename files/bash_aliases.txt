@@ -7,9 +7,17 @@
 
 # Définition d'alias pour Bash
 
-alias calup='sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin'
+alias bat='batcat'
 alias eb='clear -x && exec bash'
+alias exa='exa -alh'
+alias exad='exa -alh --group-directories-first'
 alias rbt='sudo reboot'
 alias sdn='sudo shutdown now'
 alias ssha='eval $(ssh-agent) && ssh-add'
+
+# Alias pour la mise à jour de Calibre s'il est installé
+if [ -f /usr/bin/calibre ]; then
+	alias calup='sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin'
+fi
+
 
