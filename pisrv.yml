@@ -18,11 +18,7 @@
         owner: root
         group: root
         mode: 0440
-    - name: Create .bash config directory
-      file:
-        path: /home/jul/.bash
-        state: directory
-        owner: jul
-        group: jul
-        mode: 0700
+
+    - include: tasks/bash_config.yml
+
     - include: tasks/packages.yml
