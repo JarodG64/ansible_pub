@@ -1,0 +1,20 @@
+- name: Create .bash config directory
+  file:
+    path: /home/jul/.bash
+    state: directory
+    owner: jul
+    group: jul
+    mode: 0700
+
+- name: Add bash config files
+  copy:
+    src: {{ item.src }}
+    dest: /home/jul/{{ item.dest }}
+    owner: jul
+    group: jul
+    mode: 0600
+  with_items:
+    - { src: 'bashrc', dest: '.bashrc'}
+    - { src: 'bash_aliases', dest: '.bash/bash_aliases' }
+    - { src: 'bash_prompt', dest: '.bash/bash_prompt' }
+
