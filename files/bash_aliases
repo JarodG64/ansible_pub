@@ -24,6 +24,6 @@ fi
 # Alias pour la gestion des paquets en architecture arm
 if [ $(dpkg --print-architecture) = arm64 ]; then
 	alias update='sudo apt update'
-        alias upg='sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && sudo apt clean'
+	alias upg='sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove && sudo apt clean'
 	alias install='sudo apt install'
 fi
