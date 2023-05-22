@@ -19,6 +19,14 @@
         group: root
         mode: 0440
 
+    - name: Copy function upg
+      copy:
+        src: files/upg.sh
+        dest: /usr/local/bin/upg
+        owner: root
+        group: root
+        mode: 0770
+
     - include: tasks/bash_config.yml
 
     - include: tasks/packages.yml
