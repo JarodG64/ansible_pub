@@ -3,6 +3,7 @@
     name:
     - bat
     - exa
+    - fail2ban
     - htop
     - ncdu
     - neofetch
