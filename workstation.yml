@@ -1,0 +1,31 @@
+- hosts: localhost
+  connection: local
+  become: true
+
+  pre_tasks:
+    - name: Install updates
+      apt:
+        update_cache: yes
+        upgrade: dist
+      changed_when: False
+
+  tasks:
+    - name: Copy sudoer_julien
+      copy:
+        src: files/sudoer_julien
+        dest: /etc/sudoers.d/julien
+        owner: root
+        group: root
+        mode: 0440
+
+    - name: Copy function upg
+      copy:
+        src: files/upg.sh
+        dest: /usr/local/bin/upg
+        owner: jul
+        group: jul
+        mode: 0770
+
+    - include: tasks/bash_config.yml
+    - include: tasks/julien.yml
+    - include: tasks/packages.yml
