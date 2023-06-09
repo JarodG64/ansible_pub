@@ -4,7 +4,6 @@
 
   pre_tasks:
     - name: Install updates
-      tags: always
       apt:
         update_cache: yes
         upgrade: dist
@@ -28,5 +27,4 @@
         mode: 0770
 
     - include: tasks/bash_config.yml
-
     - include: tasks/packages.yml
