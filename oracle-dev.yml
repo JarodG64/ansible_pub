@@ -1,0 +1,66 @@
+- hosts: localhost
+  connection: local
+  become: true
+
+  pre_tasks:
+    - name: Upgrade
+      apt:
+        update_cache: yes
+        upgrade: dist
+      changed_when: False
+
+  tasks:
+    - name: Grant ubuntu sudo privileges without password
+      community.general.sudoers:
+        name: ubuntu-no-password
+        user: ubuntu
+        commands: ALL
+        nopassword: true
+        state: present
+        validation: detect
+
+    - name: Copy function upg
+      copy:
+        src: files/upg.sh
+        dest: /usr/local/bin/upg
+        owner: ubuntu
+        group: ubuntu
+        mode: 0770
+
+    - name: Create .bash directory
+      file:
+        path: /home/ubuntu/.bash
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        mode: 0700
+
+    - name: Add bash config files
+      copy:
+        src: "{{ item.src }}"
+        dest: /home/ubuntu/{{ item.dest }}
+        owner: ubuntu
+        group: ubuntu
+        mode: 0600
+      with_items:
+        - { src: 'bashrc', dest: '.bashrc'}
+        - { src: 'bash_aliases', dest: '.bash/bash_aliases' }
+        - { src: 'bash_prompt', dest: '.bash/bash_prompt'}
+
+    - name: Install packages
+      ansible.builtin.apt:
+        name:
+          - bat
+          - exa
+          - fail2ban
+          - htop
+          - ncdu
+          - neofetch
+          - rsync
+          - samba
+          - ufw
+        state: latest
+        update_cache: yes
+        autoremove: yes
+
+
