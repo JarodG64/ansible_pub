@@ -10,14 +10,14 @@
       changed_when: False
 
   tasks:
-    - name: Grant ubuntu sudo privileges without password
-      community.general.sudoers:
-        name: ubuntu-no-password
-        user: ubuntu
-        commands: ALL
-        nopassword: true
-        state: present
-        validation: detect
+#    - name: Grant ubuntu sudo privileges without password
+#      community.general.sudoers:
+#        name: ubuntu-no-password
+#        user: ubuntu
+#        commands: ALL
+#        nopassword: true
+#        state: present
+#        validation: detect
 
     - name: Copy function upg
       copy:
