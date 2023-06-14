@@ -28,6 +28,6 @@
         group: jul
         mode: 0770
 
-    - include: tasks/bash_config.yml
+    - import_playbook: tasks/bash_config.yml
 
-    - include: tasks/packages.yml
+    - import_playbook: tasks/packages.yml
