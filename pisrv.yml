@@ -1,3 +1,4 @@
+---
 - hosts: localhost
   connection: local
   become: true
@@ -10,13 +11,14 @@
       changed_when: False
 
   tasks:
-    - name: Copy sudoer_jul
-      copy:
-        src: files/sudoer_jul
-        dest: /etc/sudoers.d/jul
-        owner: root
-        group: root
+    - name: Grant jul sudo privileges without password
+      lineinfile:
+        path: /etc/sudoer.d/jul
+        line: "jul ALL=(ALL) NOPASSWD: ALL"
+        state: present
         mode: 0440
+        create: true
+        validate: "visudo -cf %s"
 
     - name: Copy function upg
       copy:
@@ -27,4 +29,5 @@
         mode: 0770
 
     - include: tasks/bash_config.yml
+
     - include: tasks/packages.yml
