@@ -1,7 +1,9 @@
+---
 - name: Install packages
   apt:
     name:
       - bat
+      - duf
       - exa
       - fail2ban
       - htop
