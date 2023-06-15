@@ -28,8 +28,8 @@
         group: jul
         mode: 0770
 
-    - import_playbook: tasks/bash_config.yml
+    - include: tasks/bash_config.yml
 
-    - import_playbook: tasks/packages.yml
+    - include: tasks/packages.yml
 
-    - import_playbook: tasks/ufw.yml    
+    - include: tasks/ufw.yml    
