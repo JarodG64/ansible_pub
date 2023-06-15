@@ -39,7 +39,7 @@
   community.general.ufw:
     rule: allow
     port: "{{ item.port }}"
-    proto: {{ item.proto }}
+    proto: "{{ item.proto }}"
   with_items:
     - {port: "137", proto: "udp"}
     - {port: "138", proto: "udp"}
@@ -50,7 +50,7 @@
   community.general.ufw:
     rule: allow
     port: "{{ item.port }}"
-    proto: {{ item.proto }}
+    proto: "{{ item.proto }}"
   with_items:
     - {port: "22000", proto: "tcp"}
     - {port: "22000", proto: "udp"}
