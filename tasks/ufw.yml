@@ -5,13 +5,13 @@
     state: latest
     update_cache: true
 
-- name: Reset existing rules if some exist
+- name: Reset existing rules
   community.general.ufw:
     state: reset
 
-- name: Set logging
-  community.general.ufw:
-    logging: "on"
+#- name: Set logging
+#  community.general.ufw:
+#    logging: "medium"
 
 - name: Set default outgoing policy
   community.general.ufw:
@@ -29,30 +29,34 @@
     port: "22"
     proto: any
 
-- name: Allow http connections
-  community.general.ufw:
-    rule: allow
-    port: "80"
-    proto: any
+#- name: Allow http connections
+#  community.general.ufw:
+#    rule: allow
+#    port: "80"
+#    proto: any
 
-- name: Set Samba rules
-  community.general.ufw:
-    rule: allow
-    port: "{{ item.port }}"
-    proto: "{{ item.proto }}"
-  with_items:
-    - {port: "137", proto: "udp"}
-    - {port: "138", proto: "udp"}
-    - {port: "139", proto: "tcp"}
-    - {port: "445", proto: "udp"}
+#- name: Set Samba rules
+#  community.general.ufw:
+#    rule: allow
+#    port: "{{ item.port }}"
+#    proto: "{{ item.proto }}"
+#  with_items:
+#    - {port: "137", proto: "udp"}
+#    - {port: "138", proto: "udp"}
+#    - {port: "139", proto: "tcp"}
+#    - {port: "445", proto: "udp"}
 
-- name: Set Syncthing rules
+#- name: Set Syncthing rules
+#  community.general.ufw:
+#    rule: allow
+#    port: "{{ item.port }}"
+#    proto: "{{ item.proto }}"
+#  with_items:
+#    - {port: "22000", proto: "tcp"}
+#    - {port: "22000", proto: "udp"}
+#    - {port: "21027", proto: "udp"}
+#    - {port: "8384", proto: "tcp"}
+
+- name: Enable ufw
   community.general.ufw:
-    rule: allow
-    port: "{{ item.port }}"
-    proto: "{{ item.proto }}"
-  with_items:
-    - {port: "22000", proto: "tcp"}
-    - {port: "22000", proto: "udp"}
-    - {port: "21027", proto: "udp"}
-    - {port: "8384", proto: "tcp"}
+    state: enabled
