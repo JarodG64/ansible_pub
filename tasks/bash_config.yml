@@ -1,17 +1,18 @@
+---
 - name: Create .bash config directory
   file:
-    path: /home/jul/.bash
+    path: "/home/{{ ansible_user }}/.bash"
     state: directory
-    owner: jul
-    group: jul
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: 0700
 
 - name: Add bash config files
   copy:
     src: "{{ item.src }}"
-    dest: /home/jul/{{ item.dest }}
-    owner: jul
-    group: jul
+    dest: "/home/{{ ansible_user }}/{{ item.dest }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: 0600
   with_items:
     - { src: 'bashrc', dest: '.bashrc'}
