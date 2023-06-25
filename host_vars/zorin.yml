@@ -1,0 +1,8 @@
+---
+# Ansible variables
+ansible_host: 192.168.1.28
+ansible_user: julien
+
+# Application selection
+duf: false
+exa: false

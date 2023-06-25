@@ -1,0 +1,9 @@
+---
+# Ansible variables
+ansible_host: 192.168.1.32
+ansible_user: jul
+ansible_python_interpreter: "/usr/bin/python3"
+
+# Application selection
+duf: true
+exa: true
