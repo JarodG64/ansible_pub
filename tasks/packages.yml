@@ -1,16 +1,22 @@
 ---
 - name: Install packages
-  apt:
+  ansible.builtin.apt:
     name:
       - bat
-      - duf
-      - exa
       - fail2ban
       - htop
       - ncdu
       - neofetch
       - rsync
-      - samba
     state: latest
     update_cache: true
 
+- name: Install duf
+  ansible.builtin.apt:
+    name: duf
+  when: duf is defined and duf == true
+
+- name: Install exa
+  ansible.builtin.apt:
+    name: exa
+  when: exa is defined and exa == true
