@@ -1,6 +1,6 @@
 ---
 - name: Create .bash config directory
-  file:
+  ansible.builtin.file:
     path: "/home/{{ ansible_user }}/.bash"
     state: directory
     owner: "{{ ansible_user }}"
@@ -8,14 +8,13 @@
     mode: 0700
 
 - name: Add bash config files
-  copy:
+  ansible.builtin.copy:
     src: "{{ item.src }}"
     dest: "/home/{{ ansible_user }}/{{ item.dest }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0600
   with_items:
-    - { src: 'bashrc', dest: '.bashrc'}
-    - { src: 'bash_aliases', dest: '.bash/bash_aliases' }
-    - { src: 'bash_prompt', dest: '.bash/bash_prompt' }
-
+    - {src: 'bashrc', dest: '.bashrc'}
+    - {src: 'bash_aliases', dest: '.bash/bash_aliases'}
+    - {src: 'bash_prompt', dest: '.bash/bash_prompt'}

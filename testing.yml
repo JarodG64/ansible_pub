@@ -1,0 +1,19 @@
+---
+- hosts: pisrv
+  become: true
+
+  pre_tasks:
+    - name: Install updates
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+        upgrade: dist
+
+  tasks:
+    - name: install and configure ufw
+      ansible.builtin.include_tasks:
+        file: tasks/ufw.yml
+
+    - name: install and configure syncthing
+      ansible.builtin.include_tasks:
+        file: tasks/syncthing.yml

@@ -1,62 +1,64 @@
 ---
-- name: Install ufw package
-  apt:
+- name: ufw | install the packages
+  ansible.builtin.apt:
     name: ufw
     state: latest
     update_cache: true
 
-- name: Reset existing rules
+- name: ufw | reset existing rules
   community.general.ufw:
     state: reset
 
-#- name: Set logging
+# - name: Set logging
 #  community.general.ufw:
 #    logging: "medium"
 
-- name: Set default outgoing policy
+- name: ufw | set default outgoing policy
   community.general.ufw:
     default: allow
     direction: outgoing
 
-- name: Set default incoming policy
+- name: ufw | set default incoming policy
   community.general.ufw:
     default: deny
     direction: incoming
 
-- name: Allow ssh connections
+- name: ufw | allow ssh connections
   community.general.ufw:
     rule: allow
     port: "22"
     proto: any
 
-#- name: Allow http connections
+# - name: Allow http connections
 #  community.general.ufw:
 #    rule: allow
 #    port: "80"
 #    proto: any
 
-#- name: Set Samba rules
-#  community.general.ufw:
-#    rule: allow
-#    port: "{{ item.port }}"
-#    proto: "{{ item.proto }}"
-#  with_items:
-#    - {port: "137", proto: "udp"}
-#    - {port: "138", proto: "udp"}
-#    - {port: "139", proto: "tcp"}
-#    - {port: "445", proto: "udp"}
+- name: ufw | set rules for samba
+  community.general.ufw:
+    rule: allow
+    port: "{{ item.port }}"
+    proto: "{{ item.proto }}"
+  with_items:
+    - {port: "137", proto: "udp"}
+    - {port: "138", proto: "udp"}
+    - {port: "139", proto: "tcp"}
+    - {port: "445", proto: "udp"}
+  when: samba is defined and samba == true
 
-#- name: Set Syncthing rules
-#  community.general.ufw:
-#    rule: allow
-#    port: "{{ item.port }}"
-#    proto: "{{ item.proto }}"
-#  with_items:
-#    - {port: "22000", proto: "tcp"}
-#    - {port: "22000", proto: "udp"}
-#    - {port: "21027", proto: "udp"}
-#    - {port: "8384", proto: "tcp"}
+- name: ufw | set rules for syncthing
+  community.general.ufw:
+    rule: allow
+    port: "{{ item.port }}"
+    proto: "{{ item.proto }}"
+  with_items:
+    - {port: "22000", proto: "tcp"}
+    - {port: "22000", proto: "udp"}
+    - {port: "21027", proto: "udp"}
+    - {port: "8384", proto: "tcp"}
+  when: syncthing is defined and syncthing == true
 
-- name: Enable ufw
+- name: ufw | reload and enable service
   community.general.ufw:
     state: enabled

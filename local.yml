@@ -4,30 +4,31 @@
 
   pre_tasks:
     - name: Install updates
-      tags: always
-      apt:
+      ansible.builtin.apt:
         update_cache: true
         upgrade: dist
-      changed_when: false
 
   tasks:
-    - name: Set timezone
-      tags: settings,time,bootstrap
+    - name: set timezone
       community.general.timezone:
         name: "Europe/Paris"
 
-    - name: Bash configuration
+    - name: bash configuration
       ansible.builtin.include_tasks:
         file: tasks/bash_config.yml
 
-    - name: Install packages
+    - name: install packages
       ansible.builtin.include_tasks:
         file: tasks/packages.yml
 
 - hosts: server
   become: true
   tasks:
-    - name: Install and configure ufw
+    - name: install and configure unattended-upgrades
+      ansible.builtin.include_tasks:
+        file: tasks/unupg.yml
+
+    - name: install and configure ufw
       ansible.builtin.include_tasks:
         file: tasks/ufw.yml
 
@@ -35,13 +36,10 @@
   become: true
   post_tasks:
     - name: cleanup package cache
-      tags: always
-      apt:
+      ansible.builtin.apt:
         autoclean: true
-      changed_when: false
 
     - name: autoremove orphan packages
-      tags: always
-      apt:
+      ansible.builtin.apt:
         autoremove: true
         purge: true
