@@ -1,8 +1,0 @@
-- name: users | julien | copy profile image
-  copy:
-    src: profile_img.png
-    dest: /var/lib/AccountsService/icons/julien.png
-    owner: root
-    group: root
-    mode: 0644
-
