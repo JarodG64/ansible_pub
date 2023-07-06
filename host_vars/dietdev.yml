@@ -1,11 +1,11 @@
 ---
 # Ansible variables
-ansible_host: 192.168.1.250
-ansible_user: jul
+ansible_host: 192.168.1.245
+ansible_user: dietpi
 
 # Application selection
 duf: true
 exa: true
 samba: false
+syncthing: false
 ufw: true
-syncthing: true

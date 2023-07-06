@@ -7,3 +7,4 @@ ansible_python_interpreter: "/usr/bin/python3"
 # Application selection
 duf: true
 exa: true
+syncthing: true

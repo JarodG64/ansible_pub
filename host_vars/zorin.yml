@@ -6,3 +6,4 @@ ansible_user: julien
 # Application selection
 duf: false
 exa: false
+syncthing: true
