@@ -9,9 +9,9 @@
   community.general.ufw:
     state: reset
 
-# - name: Set logging
-#  community.general.ufw:
-#    logging: "medium"
+- name: set logging level
+  community.general.ufw:
+    logging: "low"
 
 - name: ufw | set default outgoing policy
   community.general.ufw:
@@ -28,12 +28,14 @@
     rule: allow
     port: "22"
     proto: any
+    log: true
 
-# - name: Allow http connections
-#  community.general.ufw:
-#    rule: allow
-#    port: "80"
-#    proto: any
+- name: ufw | allow http connections
+  community.general.ufw:
+    rule: allow
+    port: "80"
+    proto: any
+  when: http is defined and http == true
 
 - name: ufw | set rules for samba
   community.general.ufw:
@@ -58,6 +60,13 @@
     - {port: "21027", proto: "udp"}
     - {port: "8384", proto: "tcp"}
   when: syncthing is defined and syncthing == true
+
+- name: ufw | allow connection to dietpi dashboard
+  community.general.ufw:
+    rule: allow
+    port: "5252"
+    proto: "tcp"
+  when: dietdash is defined and dietdash == true
 
 - name: ufw | reload and enable service
   community.general.ufw:
