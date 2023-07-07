@@ -3,7 +3,7 @@
   become: true
 
   pre_tasks:
-    - name: Install updates
+    - name: install updates
       ansible.builtin.apt:
         update_cache: true
         upgrade: dist
@@ -12,6 +12,14 @@
     - name: set timezone
       community.general.timezone:
         name: "Europe/Paris"
+
+    - name: add script to update packages
+      ansible.builtin.copy:
+        src: files/upg.sh
+        dest: /usr/local/bin/upg
+        owner: "{{ansible_user}}"
+        group: "{{ansible_user}}"
+        mode: 0770
 
     - name: bash configuration
       ansible.builtin.include_tasks:
