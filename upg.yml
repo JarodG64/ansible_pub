@@ -1,0 +1,36 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: apt | dist-upgrade
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: dist
+
+    - name: apt | update all packages
+      ansible.builtin.apt:
+        update_cache: true
+        name: "*"
+        state: latest
+
+    - name: apt | cleanup package cache
+      ansible.builtin.apt:
+        autoclean: true
+
+    - name: apt | remove orphan packages
+      ansible.builtin.apt:
+        autoremove: true
+        purge: true
+
+    - name: flatpak | update the apps
+      become_user: "{{ ansible_user }}"
+      ansible.builtin.command:
+        cmd: "flatpak update -y"
+      when: flatpak is defined and flatpak == true
+
+    - name: flatpak | remove orphan apps
+      become_user: "{{ ansible_user }}"
+      ansible.builtin.command:
+        cmd: "flatpak uninstall -y --unused"
+      when: flatpak is defined and flatpak == true

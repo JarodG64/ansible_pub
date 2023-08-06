@@ -29,16 +29,26 @@
       ansible.builtin.include_tasks:
         file: tasks/packages.yml
 
+    - name: install syncthing
+      ansible.builtin.include_tasks:
+        file: tasks/syncthing.yml
+
 - hosts: server
   become: true
   tasks:
     - name: install and configure unattended-upgrades
       ansible.builtin.include_tasks:
         file: tasks/unupg.yml
+      when: dietpios is undefined
 
     - name: install and configure ufw
       ansible.builtin.include_tasks:
         file: tasks/ufw.yml
+
+    - name: syncthing-controlled directories
+      ansible.builtin.include_tasks:
+        file: tasks/syncthing_dir.yml
+      when: syncthing is defined and syncthing == true
 
 - hosts: all
   become: true

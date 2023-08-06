@@ -1,0 +1,102 @@
+---
+- name: flatpak | install flatpak
+  ansible.builtin.apt:
+    name: flatpak
+    state: latest
+
+- name: flatpak | install the software flatpak plugin
+  ansible.builtin.apt:
+    name: gnome-software-plugin-flatpak
+    state: latest
+  when: gnome is defined and gnome == true
+
+- name: flatpak | add the flathub repository
+  become_user: "{{ ansible_user }}"
+  community.general.flatpak_remote:
+    name: flathub
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: user
+    state: present
+
+- name: flatpak | install bitwarden
+  become_user: "{{ ansible_user }}"
+  community.general.flatpak:
+    name: flathub com.bitwarden.desktop
+    method: user
+    state: present
+  when: bitwarden is defined and bitwarden == true
+
+- name: flatpak | libreoffice
+  block:
+    - name: libreoffice | remove deb packages
+      become: true
+      ansible.builtin.apt:
+        name:
+          - libreoffice-writer
+          - libreoffice-calc
+          - libreoffice-impress
+          - libreoffice-draw
+          - libreoffice-base
+          - libreoffice-math
+          - libreoffice-help-fr
+          - libreoffice-help-en-us
+          - libreoffice-gtk2
+          - libreoffice-gtk3
+          - libreoffice-gnome
+        state: absent
+
+    - name: libreoffice | install flatpak version
+      become_user: "{{ ansible_user }}"
+      community.general.flatpak:
+        name: org.libreoffice.LibreOffice
+        method: user
+        state: present
+  when: libreoffice is defined and libreoffice == true
+
+- name: flatpak | install pdf arranger
+  become_user: "{{ ansible_user }}"
+  community.general.flatpak:
+    name: flathub com.github.jeromerobert.pdfarranger
+    method: user
+    state: present
+  when: pdfarranger is defined and pdfarranger == true
+
+- name: flatpak | install rpi imager
+  become_user: "{{ ansible_user }}"
+  community.general.flatpak:
+    name: flathub org.raspberrypi.rpi-imager
+    method: user
+    state: present
+  when: rpiimager is defined and rpiimager == true
+
+- name: flatpak | install gimp
+  become_user: "{{ ansible_user }}"
+  community.general.flatpak:
+    name: flathub org.gimp.GIMP
+    method: user
+    state: present
+  when: gimp is defined and gimp == true
+
+- name: flatpak | install thunderbird
+  become_user: "{{ ansible_user }}"
+  community.general.flatpak:
+    name: flathub org.mozilla.Thunderbird
+    method: user
+    state: present
+  when: thunderbird is defined and tunderbird == true
+
+- name: flatpak | install makemkv
+  become_user: "{{ ansible_user }}"
+  community.general.flatpak:
+    name: flathub com.makemkv.MakeMKV
+    method: user
+    state: present
+  when: makemkv is defined and makemkv == true
+
+- name: flatpak | install handbrake
+  become_user: "{{ ansible_user }}"
+  community.general.flatpak:
+    name: flathub fr.handbrake.ghb
+    method: user
+    state: present
+  when: handbrake is defined and handbrake == true

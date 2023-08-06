@@ -38,7 +38,7 @@
 # Enable and start syncthing
 # Note: Not using systemd module because it triggers a dbus error due to no session while user is not logged in
 - name: syncthing | start and enable service
-  command: "{{ item }}"
+  ansible.builtin.command: "{{ item }}"
   with_items:
     - "systemctl enable syncthing@{{ ansible_user }}"
     - "systemctl restart syncthing@{{ ansible_user }}"
@@ -64,7 +64,7 @@
   when: syncthing is defined and syncthing == true
 
 - name: syncthing | restart syncthing
-  command: "systemctl restart syncthing@{{ ansible_user }}"
+  ansible.builtin.command: "systemctl restart syncthing@{{ ansible_user }}"
   when: syncthing_config.changed
 
 - name: syncthing | remove default sync directory (~/Sync)

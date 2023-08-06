@@ -1,5 +1,5 @@
 ---
-- hosts: pisrv
+- hosts: homeprod
   become: true
 
   pre_tasks:
@@ -10,10 +10,7 @@
         upgrade: dist
 
   tasks:
-    - name: install and configure ufw
+    - name: syncthing-controlled directories
       ansible.builtin.include_tasks:
-        file: tasks/ufw.yml
-
-    - name: install and configure syncthing
-      ansible.builtin.include_tasks:
-        file: tasks/syncthing.yml
+        file: tasks/syncthing_dir.yml
+      when: syncthing is defined and syncthing == true
