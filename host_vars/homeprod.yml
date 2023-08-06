@@ -8,5 +8,5 @@ duf: true
 exa: true
 fail2ban: false
 samba: false
-syncthing: false
+syncthing: true
 ufw: true

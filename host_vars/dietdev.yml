@@ -4,6 +4,7 @@ ansible_host: 192.168.1.245
 ansible_user: dietpi
 
 # Application selection
+dietpios: true
 dietdash: true
 duf: true
 exa: true
