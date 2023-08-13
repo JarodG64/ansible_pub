@@ -26,3 +26,13 @@
     name: fail2ban
     state: latest
   when: fail2ban is defined and fail2ban == true
+
+- name: install gparted
+  ansible.builtin.apt:
+    name:
+      - gparted
+      - mtools
+      - xfsprogs
+      - xfsdump
+    state: latest
+  when: gparted is defined and gparted == true

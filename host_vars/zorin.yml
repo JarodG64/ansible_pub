@@ -6,4 +6,6 @@ ansible_user: julien
 # Application selection
 duf: false
 exa: false
-syncthing: true
+flatpak: true
+gparted: true
+syncthing: false
