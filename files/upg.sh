@@ -40,6 +40,7 @@ if [ -f /usr/bin/flatpak ]; then
 	echo "--------------------------"
 	echo " "
 	flatpak update -y
+	flatpak uninstall -y --unused
 fi
 
 # Mise a jour des snap si le systeme en utilise
