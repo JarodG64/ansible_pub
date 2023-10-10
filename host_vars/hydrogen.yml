@@ -1,0 +1,12 @@
+---
+# Ansible variables
+ansible_host: 192.168.1.248
+ansible_user: jul
+
+# Application selection
+duf: true
+exa: true
+fail2ban: true
+samba: false
+syncthing: false
+ufw: true

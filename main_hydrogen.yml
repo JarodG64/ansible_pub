@@ -1,0 +1,49 @@
+---
+- hosts: hydrogen
+  become: true
+
+  pre_tasks:
+    - name: install updates
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: dist
+
+  tasks:
+    - name: set timezone
+      community.general.timezone:
+        name: "Europe/Paris"
+
+    - name: add script to update packages
+      ansible.builtin.copy:
+        src: files/upg.sh
+        dest: /usr/local/bin/upg
+        owner: "{{ansible_user}}"
+        group: "{{ansible_user}}"
+        mode: 0770
+
+    - name: bash configuration
+      ansible.builtin.include_tasks:
+        file: tasks/bash_config.yml
+
+    - name: install packages
+      ansible.builtin.include_tasks:
+        file: tasks/packages.yml
+
+    - name: install and configure unattended-upgrades
+      ansible.builtin.include_tasks:
+        file: tasks/unupg.yml
+      when: dietpios is undefined
+
+    - name: install and configure ufw
+      ansible.builtin.include_tasks:
+        file: tasks/ufw.yml
+
+  post_tasks:
+    - name: cleanup package cache
+      ansible.builtin.apt:
+        autoclean: true
+
+    - name: autoremove orphan packages
+      ansible.builtin.apt:
+        autoremove: true
+        purge: true
