@@ -4,7 +4,7 @@ ansible_host: 192.168.1.248
 ansible_user: jul
 
 # Application selection
-duf: true
+duf: false
 exa: true
 fail2ban: true
 samba: false
