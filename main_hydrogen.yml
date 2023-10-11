@@ -1,5 +1,5 @@
 ---
-- hosts: hydrogen
+- hosts: localhost
   become: true
 
   pre_tasks:
