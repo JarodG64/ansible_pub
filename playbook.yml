@@ -1,0 +1,16 @@
+---
+- hosts: neon
+  become: true
+
+  pre_tasks:
+    - name: apt | dist-upgrade
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: dist
+
+  tasks:
+    - name: Install eza
+      ansible.builtin.include_tasks:
+        file: tasks/eza.yml
+#      when: syncthing is defined and syncthing == true
+
