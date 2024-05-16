@@ -1,16 +1,22 @@
 ---
-- hosts: neon
+- hosts: mdp
   become: true
-
-  pre_tasks:
-    - name: apt | dist-upgrade
-      ansible.builtin.apt:
-        update_cache: true
-        upgrade: dist
+#  pre_tasks:
+#    - name: apt | install updates
+#      ansible.builtin.apt:
+#        update_cache: true
+#        upgrade: dist
 
   tasks:
-    - name: Install eza
-      ansible.builtin.include_tasks:
-        file: tasks/eza.yml
-#      when: syncthing is defined and syncthing == true
+    - ansible.builtin.import_tasks:
+        file: "tasks/debug.yml"
 
+#  post_tasks:
+#    - name: apt | cleanup package cache
+#      ansible.builtin.apt:
+#        autoclean: true
+
+#    - name: apt | remove orphan packages
+#      ansible.builtin.apt:
+#        autoremove: true
+#        purge: true
