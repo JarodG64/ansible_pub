@@ -1,7 +1,7 @@
 ---
-- name: apt | Install eza
+- name: apt | install eza
   block:
-    - name: eza | Add keyrings directory
+    - name: nala | add keyrings directory
       ansible.builtin.file:
         path: "/etc/apt/keyrings"
         state: directory
@@ -9,14 +9,14 @@
         group: "root"
         mode: 0755
 
-    - name: eza | Add gpg key
+    - name: eza | add gpg key
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/eza-community/eza/main/deb.asc
         dest: /etc/apt/keyrings/gierens.asc
         mode: 0644
         force: true
 
-    - name: eza | Add repo
+    - name: eza | add repo
       ansible.builtin.apt_repository:
         repo: "deb [signed-by=/etc/apt/keyrings/gierens.asc] http://deb.gierens.de stable main"
         filename: gierens
@@ -24,7 +24,7 @@
         mode: 0644
         update_cache: true
 
-    - name: eza | Install package
+    - name: eza | install package
       ansible.builtin.apt:
         name: eza
         state: latest
