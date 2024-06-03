@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become: true
+
+  pre_tasks:
+    - name: install updates
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: dist
+
+  tasks:
+    - name: apt | install packages
+      ansible.builtin.apt:
+        name:
+          - "curl"
+          - "duf"
+          - "htop"
+          - "lf"
+          - "ncdu"
+        state: "latest"
+
+  post_tasks:
+    - name: cleanup package cache
+      ansible.builtin.apt:
+        autoclean: true
+
+    - name: autoremove orphan packages
+      ansible.builtin.apt:
+        autoremove: true
+        purge: true
