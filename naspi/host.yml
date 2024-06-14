@@ -1,0 +1,6 @@
+---
+ungrouped:
+  hosts:
+    phosphorus:
+      ansible_host: "phosphorus.lan"
+      ansible_user: "phosphorus_user"

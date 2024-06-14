@@ -1,0 +1,55 @@
+---
+- hosts: all
+  gather_facts: true
+  become: true
+
+  vars:
+    config_txt:
+      - "/boot/config.txt"
+      - "/boot/firmware/config.txt"
+    fan_power_control:
+      - url: "https://raw.githubusercontent.com/geekworm-com/xscript/main/x-c1-fan.sh"
+        dest: "/usr/local/bin/x-c1-fan.sh"
+      - url: "https://raw.githubusercontent.com/geekworm-com/xscript/main/x-c1-fan.service"
+        dest: "/lib/systemd/system/x-c1-fan.service"
+        service: "x-c1-fan"
+      - url: "https://raw.githubusercontent.com/geekworm-com/xscript/main/xPWR.sh"
+        dest: "/usr/local/bin/xPWR.sh"
+      - url: "https://raw.githubusercontent.com/geekworm-com/xscript/main/xSoft.sh"
+        dest: "/usr/local/bin/xSoft.sh"
+      - url: "https://raw.githubusercontent.com/geekworm-com/xscript/main/x-c1-pwr.service"
+        dest: "/lib/systemd/system/x-c1-pwr.service"
+        service: "x-c1-pwr"
+
+  tasks:
+    - name: modify config.txt
+      ansible.builtin.include_tasks:
+        file: config_loop.yml
+      loop: "{{ config_txt }}"
+
+    - name: apt | install gpiod package
+      ansible.builtin.apt:
+        name: "gpiod"
+        state: "latest"
+
+    - name: install fan and power control
+      ansible.builtin.get_url:
+        url: "{{ item.url }}"
+        dest: "{{ item.dest }}"
+        owner: root
+        group: root
+        mode: 0755
+      loop: "{{ fan_power_control }}"
+
+    - name: start fan and power control services
+      ansible.builtin.service:
+        name: "{{ item.service }}"
+        state: "started"
+        enabled: true
+      when: item.service is defined
+      loop: "{{ fan_power_control }}"
+
+    - name: add shutdown alias
+      ansible.builtin.lineinfile:
+        path: "/home/{{ ansible_user }}/.bashrc"
+        line: "alias xoff='sudo /usr/local/bin/xSoft.sh 0 27'"
