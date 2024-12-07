@@ -1,8 +1,0 @@
----
-- name: user | copy profile image
-  ansible.builtin.copy:
-    src: profile_img.png
-    dest: "/var/lib/AccountsService/icons/{{ansible_user}}.png"
-    owner: root
-    group: root
-    mode: 0644

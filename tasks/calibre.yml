@@ -1,7 +1,0 @@
----
-- name: Install Calibre
-  ansible.builtin.shell:
-    chdir: "/home/{{ansible_user}}/"
-    cmd: sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
-  args:
-    executable: /bin/bash
