@@ -1,0 +1,102 @@
+---
+cloud:
+  hosts:
+    silicon:
+      ansible_host: "silicon.mydomain.com"
+      ansible_user: "ubuntu"
+
+dev:
+  hosts:
+    hydrogen:
+      ansible_host: "hydrogen.lan"
+      ansible_user: "jul"
+
+    nitrogen:
+      ansible_host: "nitrogen.mdp.lan"
+      ansible_user: "jul"
+    
+    phosphorus:
+      ansible_host: "phosphorus.mdp.lan"
+      ansible_user: "dietpi"
+
+house:
+  hosts:
+    aluminium:
+      ansible_host: "aluminum.lan"
+      ansible_user: "jul"
+
+    fluorine:
+      ansible_host: "fluorine.lan"
+      ansible_user: "jul"
+    
+    hydrogen:
+      ansible_host: "hydrogen.lan"
+      ansible_user: "jul"
+
+    neon:
+      ansible_host: "neon.lan"
+      ansible_user: "julien"
+
+    sulfur:
+      ansible_host: "sulfur.lan"
+      ansible_user: "jul"
+
+mdp:
+  hosts:
+    magnesium:
+      ansible_host: "magneium.mdp.lan"
+      ansible_user: "dietpi"
+    
+    neon:
+      ansible_host: "neon.lan"
+      ansible_user: "julien"
+
+    nitrogen:
+      ansible_host: "nitrogen.mdp.lan"
+      ansible_user: "jul"
+
+    phosphorus:
+      ansible_host: "phosphorus.mdp.lan"
+      ansible_user: "dietpi"
+    
+    sodium:
+      ansible_host: "sodium.mdp.lan"
+      ansible_user: "mdp"
+
+prod:
+  hosts:
+    aluminium:
+      ansible_host: "aluminium.lan"
+      ansible_user: "jul"
+
+    magnesium:
+      ansible_host: "magnesium.mdp.lan"
+      ansible_user: "dietpi"
+
+    silicon:
+      ansible_host: "silicon.mydomain.com"
+      ansible_user: "ubuntu"
+
+    sulfur:
+      ansible_host: "sulfur.lan"
+      ansible_user: "jul"
+
+servers:
+  children:
+    prod:
+    dev:
+
+workstations:
+  hosts:
+    fluorine:
+      ansible_host: "fluorine.lan"
+      ansible_user: "jul"
+
+    neon:
+      ansible_host: "neon.lan"
+      ansible_user: "julien"
+    
+    sodium:
+      ansible_host: "sodium.mdp.lan"
+      ansible_user: "mdp"
+
